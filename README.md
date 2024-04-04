@@ -1,5 +1,5 @@
 <p align="center">
-  <img width=192 src="https://github.com/youngling-coder/wallpaper-ed/assets/142408709/6963a240-f955-446d-804e-7d5e8f206c17" alt="Logo"/>
+  <img width=192 src="https://github.com/youngling-coder/wallpaper-ed/assets/142408709/1fd235db-ad18-4ae5-bbd1-7747650b57a8" alt="Logo"/>
 </p>
 
 # 🖥️ WallpaperED
