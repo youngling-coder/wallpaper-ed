@@ -1,0 +1,15 @@
+{
+    "app": {
+        "execute": [
+            "gsettings set org.gnome.desktop.background picture-uri \"file://%PATH%\"",
+            "gsettings set org.gnome.desktop.background picture-uri-dark \"file://%PATH%\""
+        ],
+        "wallpaper_filename": "unsplash_wallpaper.jpg",
+        "download_directory": "~/.local/share/backgrounds/",
+        "unsplash_access_token": ""
+    },
+    "image": {
+        "orientation": "landscape",
+        "count": 1
+    }
+}

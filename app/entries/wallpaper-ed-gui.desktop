@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=WallpaperED
+Comment=Fresh wallpapers every time.
+Type=Application
+Terminal=false
+Exec=wallpaper-ed --gui
+Icon=/usr/share/icons/wallpaper-ed/icon.png
