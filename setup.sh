@@ -1,5 +1,3 @@
-\#!/usr/bin/bash
-
 # Set installation variables
 APP_NAME=wallpaper-ed
 
@@ -35,4 +33,12 @@ rm -rf $BUILD_DIR
 rm -rf build/
 rm *.spec
 
+
+echo "Specify Unsplash API Access Token:"
+read API_TOKEN
+
+jq --arg token "$API_TOKEN" '.app.unsplash_access_token = $token' "$CONFIG_DIR/config.json" > "$CONFIG_DIR/tmp.json" && mv "$CONFIG_DIR/tmp.json" "$CONFIG_DIR/config.json"
+
+echo "Configuration file directory:"
+echo $CONFIG_DIR
 echo "Installation done!"

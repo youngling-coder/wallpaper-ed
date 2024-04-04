@@ -15,6 +15,9 @@ This application is powered by the Unsplash API, which provides access to a libr
 ## Installation
 
 ### Prerequisites
+
+All the tools below is needed to be installed with the system or manually (via any package manager)
+- jq
 - python3
 - python3-pip
 
@@ -32,56 +35,45 @@ Do not forget to extract the files from the archive!
 
 As files are downloaded and extracted, all you need to do is to execute ```setup.sh``` script in source code folder. It will install all the required files and dependencies.
 
-To launch the script execute following in terminal:
 
+DO NOT run script below using sudo```sudo ./setup.sh```! Not all commands need to be run as sudo. The sudo password will be requested.
 ```sh
 $ cd /path/to/source/wallpaper-ed
 $ chmod +x setup.sh
 $ ./setup.sh
 ```
+### Unsplash API setup
+Script will prompt you to enter Unsplash API Access Token. Just copy-paste it.
+
+If there are any issues occurred, the config file location will be shown after the installation, so you can edit it manually. 
 
 **If no errors will occur, installation is done!**
 
-### Unsplash API & Config setup
-Now it's time to edit config file. It's responsible for storing relevant wallpaper queries that you would like to see on your desktop and all the data required for a proper API work. Open config file using any text editor or command
+### Query setup
 
-```sh
-$ nano ~/.config/wallpaper-ed/config.json
-```
-To get things set up, the first thing you need to do is to paste your Unsplash API token in the config file.
-
-```json
-{
-    "app": {
-        "execute": [
-            "gsettings set org.gnome.desktop.background picture-uri \"file://%PATH%\"",
-            "gsettings set org.gnome.desktop.background picture-uri-dark \"file://%PATH%\""
-        ],
-        "wallpaper_filename": "unsplash_wallpaper.jpg",
-        "download_directory": "~/.local/share/backgrounds/",
-        "unsplash_access_token": "YOUR_TOKEN_HERE"
-    },
-    // ...
-}
-```
-
-You may also like to set wallpaper that would match certain parameters. It may be specific topic, query, collection or even a username of an Unsplash user. For instance, if you want to see photos of apples created by someone with the username @itsmyname, you would modify the file as follows
+You may also like to set wallpaper that would match certain parameters. It may be specific topic,
+query, collection or even a username of an Unsplash user. For instance, if you want to see photos
+of apples created by someone with the username @itsmyname, you would modify the file as follows
 
 ```json
 {
     // ...
     "image": {
         "query": "apples",
-        "nickname": "itsmyname"
+        "username": "itsmyname"
     }
 }
 ```
 
 Full list of available parameters you can see **[here](https://unsplash.com/documentation#get-a-random-photo)**.
 
-### GUI Interface
+For GUI application is now built-in query search available, so you do not need to edit the config 
+file every time you use GUI program version.
 
-This app is also has GUI powered by PyQt5. To launch GUI Instance of application run in your terminal
+### GUI
+
+This app is also has GUI powered by PyQt5. WallpaperED is supposed to appear in applications menu, 
+but you can use the command below to launch GUI Instance of the application.
 
 ```sh
 $ wallpaper-ed --gui
