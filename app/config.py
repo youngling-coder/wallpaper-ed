@@ -29,11 +29,14 @@ def load_config(filename: str):
     return config
 
 
-def write_config(filename: str):
+def write_config(filename: str, config: dict = None):
     """Write existing config dict object to file."""
+
+    if not config:
+        config = BASE_CONFIG
 
     # Write new config to the file
     with open(filename, "w") as json_config:
-        json.dump(BASE_CONFIG, json_config, indent=4)
+        json.dump(config, json_config, indent=4)
 
     return BASE_CONFIG

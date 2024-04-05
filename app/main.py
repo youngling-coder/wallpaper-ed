@@ -2,7 +2,7 @@
 
 import sys
 import core
-from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox, QLineEdit
 from PyQt5.QtGui import QPixmap, QImage
 from app_ui import Ui_MainWindow
 
@@ -16,21 +16,43 @@ class WallpaperED(QMainWindow):
 
         # Setup UI if gui mode enabled
         if self.gui_mode:
+
+            # Setup UI
             self.ui = Ui_MainWindow()
             self.ui.setupUi(self)
+
+            # Setup tooltips for buttons
             self.ui.setWallpaperButton.setToolTip(
                 self.ui.setWallpaperButton.shortcut().toString()
             )
             self.ui.getWallpaperButton.setToolTip(
                 self.ui.getWallpaperButton.shortcut().toString()
             )
+            self.ui.applySettingsButton.setToolTip(
+                self.ui.applySettingsButton.shortcut().toString()
+            )
+            self.ui.resetSettingsButton.setToolTip(
+                self.ui.resetSettingsButton.shortcut().toString()
+            )
+            self.ui.showAPITokenButton.setToolTip(
+                self.ui.showAPITokenButton.shortcut().toString()
+            )
 
             # Connect slots to methods
             self.ui.getWallpaperButton.clicked.connect(self.getWallpaperButtonClicked)
             self.ui.setWallpaperButton.clicked.connect(self.setWallpaperButtonClicked)
+            self.ui.applySettingsButton.clicked.connect(self.applySettingsButtonClicked)
+            self.ui.resetSettingsButton.clicked.connect(self.resetSettingsButtonClicked)
+            self.ui.showAPITokenButton.clicked.connect(self.showAPITokenButtonClicked)
 
         # Set current image as None
         self.current_image = None
+
+    def showAPITokenButtonClicked(self):
+        if self.ui.apiTokenEdit.echoMode() == QLineEdit.EchoMode.Password:
+            self.ui.apiTokenEdit.setEchoMode(QLineEdit.EchoMode.Normal)
+        else:
+            self.ui.apiTokenEdit.setEchoMode(QLineEdit.EchoMode.Password)
 
     def showErrorMessage(self, title: str, description: str, details: str) -> None:
         """Shows the error message."""
@@ -44,6 +66,45 @@ class WallpaperED(QMainWindow):
             err_msg.exec()
         else:
             print(description + "\nDetails:\n" + details)
+
+    def loadConfigToGUI(self, config: dict):
+        self.ui.downloadDirectoryEdit.setText(config["app"]["download_directory"])
+        self.ui.apiTokenEdit.setText(config["app"]["unsplash_access_token"])
+
+        commands = config["app"]["execute"]
+
+        commands = "\n".join(commands)
+        self.ui.wallpaperCommandEdit.setText(commands)
+        self.ui.imageOrientationEdit.setText(config["image"]["orientation"])
+
+    def applySettingsButtonClicked(self):
+
+        # Read values from user input
+        download_directory = self.ui.downloadDirectoryEdit.text().lstrip()
+        api_token = self.ui.apiTokenEdit.text().lstrip()
+        wallpaper_commands = self.ui.wallpaperCommandEdit.toPlainText()
+        wallpaper_commands = wallpaper_commands.split("\n")
+        wallpaper_commands = list(filter(lambda cmd:  cmd.lstrip(), wallpaper_commands))
+
+        orientation = self.ui.imageOrientationEdit.text().lstrip()
+
+        if download_directory:
+            core.CONFIG["app"]["download_directory"] = download_directory
+
+        if api_token:
+            core.CONFIG["app"]["unsplash_access_token"] = api_token
+
+        if wallpaper_commands:
+            core.CONFIG["app"]["execute"] = wallpaper_commands
+
+        if orientation:
+            core.CONFIG["image"]["orientation"] = orientation
+
+        # Write new config to the file
+        core.write_config(core.config_filename, config=core.CONFIG)
+
+    def resetSettingsButtonClicked(self):
+        self.loadConfigToGUI(config=core.CONFIG)
 
     def getWallpaperButtonClicked(self):
 
@@ -114,6 +175,7 @@ if __name__ == "__main__":
     # Show main window if gui mode is enabled,
     # otherwise automatically download and set wallpaper
     if gui_mode:
+        main_window.loadConfigToGUI(core.CONFIG)
         main_window.show()
         sys.exit(app.exec())
     else:
