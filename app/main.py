@@ -110,11 +110,14 @@ class WallpaperED(QMainWindow):
 
         # Fetch new random image depending on config
         try:
-            user_image_query = self.ui.imageQueryEdit.text().lstrip()
-            if user_image_query:
-                custom_config = core.CONFIG["image"].copy()
-                custom_config["query"] = user_image_query
-                self.current_image = core.get_image_url(config=custom_config)
+            if self.gui_mode:
+                user_image_query = self.ui.imageQueryEdit.text().lstrip()
+                if user_image_query:
+                    custom_config = core.CONFIG["image"].copy()
+                    custom_config["query"] = user_image_query
+                    self.current_image = core.get_image_url(config=custom_config)
+                else:
+                    self.current_image = core.get_image_url()
             else:
                 self.current_image = core.get_image_url()
 
