@@ -4,6 +4,10 @@
             "gsettings set org.gnome.desktop.background picture-uri \"file://%PATH%\"",
             "gsettings set org.gnome.desktop.background picture-uri-dark \"file://%PATH%\""
         ],
+        "autostart": {
+            "enabled": true,
+            "query": ""
+        },
         "wallpaper_filename": "unsplash_wallpaper.jpg",
         "download_directory": "~/.local/share/backgrounds/",
         "unsplash_access_token": ""

@@ -66,24 +66,18 @@ of apples created by someone with the username @itsmyname, you would modify the 
 ```
 
 Full list of available parameters you can see **[here](https://unsplash.com/documentation#get-a-random-photo)**.
-
+But it is always better to use built-in search bar to generate photos, until you want photos of the certain category appear as default.
 For GUI application is now built-in query search available, so you do not need to edit the config 
 file every time you use GUI program version.
 
 ### GUI
 
-This app is also has GUI powered by PyQt5. WallpaperED is supposed to appear in applications menu, 
+This app is also has GUI powered by PyQt5. WallpaperED is supposed to appear in the applications menu, 
 but you can use the command below to launch GUI Instance of the application.
 
 ```sh
 $ wallpaper-ed --gui
 ```
-
-### Shortcuts
-
-`Return` Generate new wallpaper
-
-`Ctrl + Alt + Enter` Set current image as wallpaper
 
 ### Next steps
 
