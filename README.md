@@ -36,7 +36,7 @@ Do not forget to extract the files from the archive!
 As files are downloaded and extracted, all you need to do is to execute ```setup.sh``` script in source code folder. It will install all the required files and dependencies.
 
 
-DO NOT run script below using sudo```sudo ./setup.sh```! Not all commands need to be run as sudo. The sudo password will be requested.
+**DO NOT** run script below using sudo```sudo ./setup.sh```! The sudo password will be requested as needed.
 ```sh
 $ cd /path/to/source/wallpaper-ed
 $ chmod +x setup.sh
@@ -69,7 +69,9 @@ Full list of available parameters you can see **[here](https://unsplash.com/docu
 But it is always better to use built-in search bar to generate photos, until you want photos of the certain category appear as default.
 For GUI application is now built-in query search available, so you do not need to edit the config 
 file every time you use GUI program version.
+### Autostart setup
 
+By default, in Wallpaper-Ed  update wallpaper on startup function is enabled. You can set up a specific query for this, try your luck with completely random images, or disable wallpaper updates on startup.
 ### GUI
 
 This app is also has GUI powered by PyQt5. WallpaperED is supposed to appear in the applications menu, 
