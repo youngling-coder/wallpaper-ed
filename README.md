@@ -36,7 +36,7 @@ Do not forget to extract the files from the archive!
 As files are downloaded and extracted, all you need to do is to execute ```setup.sh``` script in source code folder. It will install all the required files and dependencies.
 
 
-**DO NOT** run script below using sudo```sudo ./setup.sh```! The sudo password will be requested as needed.
+**DO NOT** run script below using sudo ```sudo ./setup.sh```! The sudo password will be requested as needed.
 ```sh
 $ cd /path/to/source/wallpaper-ed
 $ chmod +x setup.sh
@@ -45,36 +45,19 @@ $ ./setup.sh
 ### Unsplash API setup
 Script will prompt you to enter Unsplash API Access Token. Just copy-paste it.
 
-If there are any issues occurred, the config file location will be shown after the installation, so you can edit it manually. 
+If there are any issues occurred, the config file location will be shown after the installation, so you can edit it manually.
 
 **If no errors will occur, installation is done!**
 
 ### Query setup
 
-You may also like to set wallpaper that would match certain parameters. It may be specific topic,
-query, collection or even a username of an Unsplash user. For instance, if you want to see photos
-of apples created by someone with the username @itsmyname, you would modify the file as follows
-
-```json
-{
-    // ...
-    "image": {
-        "query": "apples",
-        "username": "itsmyname"
-    }
-}
-```
-
-Full list of available parameters you can see **[here](https://unsplash.com/documentation#get-a-random-photo)**.
-But it is always better to use built-in search bar to generate photos, until you want photos of the certain category appear as default.
-For GUI application is now built-in query search available, so you do not need to edit the config 
-file every time you use GUI program version.
+There's the built-in search bar implemented to generate photos according to your requests.
 ### Autostart setup
 
 By default, in Wallpaper-Ed  update wallpaper on startup function is enabled. You can set up a specific query for this, try your luck with completely random images, or disable wallpaper updates on startup.
 ### GUI
 
-This app is also has GUI powered by PyQt5. WallpaperED is supposed to appear in the applications menu, 
+This app is also has GUI powered by PyQt5. WallpaperED is supposed to appear in the applications menu,
 but you can use the command below to launch GUI Instance of the application.
 
 ```sh
