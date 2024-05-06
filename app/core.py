@@ -1,6 +1,8 @@
 import requests
 from http.client import responses
-from config import load_config, write_config, APP_NAME
+# from config import load_config, write_config, APP_NAME
+
+from program_data import ProgramData
 from typing import Optional
 import os
 
@@ -10,47 +12,44 @@ import os
 # Unsplash License: https://unsplash.com/license
 # More info about Unsplash API: https://unsplash.com/documentation
 
-# Setting up basic config store parameters
-config_filename = os.path.expanduser(f"~/.config/{APP_NAME}/config.json")
 
+program_data = ProgramData()
 # Check if config file exists and create one if not
-if not os.path.exists(config_filename) or os.path.isdir(config_filename):
-    CONFIG = write_config(config_filename)
+if not os.path.exists(program_data.get_config_filename()) or os.path.isdir(program_data.get_config_filename()):
+    program_data.write_config()
 else:
-    CONFIG = load_config(config_filename)
+    program_data.load_config()
 
 # Initializing Unsplash API token and URL
-
-API_TOKEN = CONFIG["app"]["unsplash_access_token"]
-API_URL = "https://api.unsplash.com/photos/random"
+API_TOKEN = program_data.get_unsplash_api_token()
+API_URL = program_data.get_unsplash_api_url()
 
 # Initializing downloading parameters
-WALLPAPER_DIRECTORY = os.path.expanduser(CONFIG["app"]["download_directory"])
-BASE_IMAGE_NAME = CONFIG["app"]["wallpaper_filename"]
-DOWNLOADED_FILEPATH = os.path.join(WALLPAPER_DIRECTORY, BASE_IMAGE_NAME)
+DOWNLOADED_FILEPATH = program_data.get_wallpaper_path()
 
 
 def set_wallpaper() -> None:
     """Sets new desktop wallpaper."""
 
     # Executes command to set wallpaper replacing %PATH% with actual downloaded file path
-    for command in CONFIG["app"]["execute"]:
+    for command in program_data.get_commands():
         os.system(command=command.replace("%PATH%", DOWNLOADED_FILEPATH))
 
 
 def save_image(content: bytes) -> None:
     """Saves image locally. Returns downloaded file location"""
 
+    dir_ = program_data.get_download_directory()
     # Set up download directory if not exists
-    if not os.path.exists(WALLPAPER_DIRECTORY):
-        os.mkdir(WALLPAPER_DIRECTORY)
+    if not os.path.exists(dir_):
+        os.mkdir(dir_)
 
     # Writing data to the image
     with open(DOWNLOADED_FILEPATH, "wb") as write_image:
         write_image.write(content)
 
 
-def get_image_url(config: Optional[dict] = None) -> dict:
+def get_image_url(config: Optional[dict] = {}) -> dict:
     """Fetches URL of the image."""
 
     # Setting up parameters & headers
@@ -60,7 +59,7 @@ def get_image_url(config: Optional[dict] = None) -> dict:
 
     # Setup image config
 
-    params = CONFIG["image"].copy()
+    params = program_data.get_image_kwargs()
 
     if config:
         params.update(config)
@@ -71,9 +70,7 @@ def get_image_url(config: Optional[dict] = None) -> dict:
     if response.status_code != 200:
         error_msg = f"{response.status_code} - {responses[response.status_code]}"
         if response.status_code == 401:
-            error_msg += f"\nUnsplash API Access Token is invalid or not specified.\n" \
-                         "To edit, specify or check spelling of the Unsplash API Access Token" \
-                         f" update this file {config_filename}\nSee config setup guide here: "
+            error_msg += f"\nUnsplash API Access Token is invalid or not specified.\n"
         raise requests.HTTPError(error_msg)
 
     # Return image url
@@ -90,9 +87,7 @@ def get_image_as_bytes(url: str) -> bytes | None:
     if response.status_code != 200:
         error_msg = f"{response.status_code} - {responses[response.status_code]}"
         if response.status_code == 401:
-            error_msg += f"\nUnsplash API Access Token is invalid or not specified.\n" \
-                         "To edit, specify or check spelling of the Unsplash API Access Token" \
-                         f" update this file {config_filename}\nSee config setup guide here: "
+            error_msg += f"\nUnsplash API Access Token is invalid or not specified.\n"
         raise requests.HTTPError(error_msg)
 
     return response.content

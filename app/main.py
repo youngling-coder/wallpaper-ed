@@ -1,14 +1,18 @@
 import os
 import sys
 import core
+from program_data import ProgramData
 from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox, QLineEdit
 from PyQt5.QtGui import QPixmap, QImage
 from app_ui import Ui_MainWindow
 
 
 class WallpaperED(QMainWindow):
-    def __init__(self, gui_mode: bool = False) -> None:
+
+    def __init__(self, program_data: ProgramData, gui_mode: bool = False) -> None:
         super(WallpaperED, self).__init__()
+
+        self.__program_data = program_data
 
         # Flag is responsible for UI rendering
         self.gui_mode = gui_mode
@@ -66,20 +70,18 @@ class WallpaperED(QMainWindow):
         else:
             print(description + "\nDetails:\n" + details)
 
-    def loadConfigToGUI(self, config: dict):
+    def loadConfigToGUI(self):
 
-        print(config)
+        self.ui.downloadDirectoryEdit.setText(self.__program_data.get_download_directory())
+        self.ui.apiTokenEdit.setText(self.__program_data.get_unsplash_api_token())
 
-        self.ui.downloadDirectoryEdit.setText(config["app"]["download_directory"])
-        self.ui.apiTokenEdit.setText(config["app"]["unsplash_access_token"])
-
-        commands = config["app"]["execute"]
+        commands = self.__program_data.get_commands()
 
         commands = "\n".join(commands)
         self.ui.wallpaperCommandEdit.setText(commands)
-        self.ui.imageOrientationEdit.setText(config["image"]["orientation"])
-        self.ui.isUpdateAutostartEnabledCheckBox.setChecked(config["app"]["autostart"]["enabled"])
-        self.ui.autostartSearchQueryEdit.setText(config["app"]["autostart"]["query"])
+        self.ui.imageOrientationEdit.setText(self.__program_data.get_image_orientation())
+        self.ui.isUpdateAutostartEnabledCheckBox.setChecked(self.__program_data.get_is_autostart_enabled())
+        self.ui.autostartSearchQueryEdit.setText(self.__program_data.get_autostart_query())
 
     def applySettingsButtonClicked(self):
 
@@ -96,28 +98,27 @@ class WallpaperED(QMainWindow):
         orientation = self.ui.imageOrientationEdit.text().lstrip()
 
         if download_directory:
-            core.CONFIG["app"]["download_directory"] = download_directory
+            self.__program_data.set_download_direcory(download_directory)
 
         if api_token:
-            core.CONFIG["app"]["unsplash_access_token"] = api_token
+            self.__program_data.set_unsplash_api_token(api_token)
 
         if wallpaper_commands:
-            core.CONFIG["app"]["execute"] = wallpaper_commands
+            self.__program_data.set_commands(wallpaper_commands)
 
         if orientation:
-            core.CONFIG["image"]["orientation"] = orientation
+            self.__program_data.set_image_orientation(orientation)
 
-        core.CONFIG["app"]["autostart"]["enabled"] = is_autostart_enabled
-        core.CONFIG["app"]["autostart"]["query"] = autostart_query
+        self.__program_data.set_is_autostart_enabled(is_autostart_enabled)
+        self.__program_data.set_autostart_query(autostart_query)
 
         self.autostartRegistry(delete=is_autostart_enabled)
 
         # Write new config to the file
-        core.write_config(core.config_filename, config=core.CONFIG)
+        self.__program_data.write_config()
 
     def autostartRegistry(self, delete: bool = False):
 
-        print(f"Delete: {delete}")
         filename = "wallpaper-ed-autostart.desktop"
         autostart_registry_path = os.path.expanduser(f"~/.config/autostart/{filename}")
 
@@ -125,7 +126,6 @@ class WallpaperED(QMainWindow):
             if delete:
                 os.remove(autostart_registry_path)
         else:
-            print(1)
             with open(autostart_registry_path, "w") as reg:
                 reg.write("""[Desktop Entry]
 Comment=Fresh wallpapers every time.
@@ -133,26 +133,23 @@ Exec=wallpaper-ed
 Type=Application
 """)
 
-
     def resetSettingsButtonClicked(self):
-        self.loadConfigToGUI(config=core.CONFIG)
+        self.loadConfigToGUI()
 
     def getWallpaperButtonClicked(self):
 
         # Fetch new random image depending on config
         try:
+            custom_config = self.__program_data.get_image_kwargs()
             if self.gui_mode:
                 user_image_query = self.ui.imageQueryEdit.text().lstrip()
                 if user_image_query:
-                    custom_config = core.CONFIG["image"].copy()
                     custom_config["query"] = user_image_query
-                    self.current_image = core.get_image_url(config=custom_config)
-                else:
-                    self.current_image = core.get_image_url()
+
             else:
-                custom_config = core.CONFIG["image"].copy()
-                custom_config["query"] = core.CONFIG["app"]["autostart"]["query"]
-                self.current_image = core.get_image_url(config=custom_config)
+                custom_config["query"] = self.__program_data.get_autostart_query()
+
+            self.current_image = core.get_image_url(config=custom_config)
 
         except Exception as ex:
             self.showErrorMessage(title="Error!",
@@ -206,12 +203,15 @@ if __name__ == "__main__":
     # Create application and main window instances
     app = QApplication([])
     gui_mode = "--gui" in args
-    main_window = WallpaperED(gui_mode=gui_mode)
+    main_window = WallpaperED(
+        program_data=core.program_data,
+        gui_mode=gui_mode
+    )
 
     # Show main window if gui mode is enabled,
     # otherwise automatically download and set wallpaper
     if gui_mode:
-        main_window.loadConfigToGUI(core.CONFIG)
+        main_window.loadConfigToGUI()
         main_window.show()
         sys.exit(app.exec())
     else:
