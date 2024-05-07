@@ -1,7 +1,5 @@
 import requests
 from http.client import responses
-# from config import load_config, write_config, APP_NAME
-
 from program_data import ProgramData
 from typing import Optional
 import os
@@ -21,7 +19,6 @@ else:
     program_data.load_config()
 
 # Initializing Unsplash API token and URL
-API_TOKEN = program_data.get_unsplash_api_token()
 API_URL = program_data.get_unsplash_api_url()
 
 # Initializing downloading parameters
@@ -54,7 +51,7 @@ def get_image_url(config: Optional[dict] = {}) -> dict:
 
     # Setting up parameters & headers
     headers = {
-        "Authorization": f"Client-ID {API_TOKEN}"
+        "Authorization": f"Client-ID {program_data.get_unsplash_api_token()}"
     }
 
     # Setup image config

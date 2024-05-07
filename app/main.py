@@ -114,9 +114,6 @@ class WallpaperED(QMainWindow):
 
         self.autostartRegistry(delete=is_autostart_enabled)
 
-        # Write new config to the file
-        self.__program_data.write_config()
-
     def autostartRegistry(self, delete: bool = False):
 
         filename = "wallpaper-ed-autostart.desktop"
