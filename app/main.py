@@ -92,7 +92,7 @@ class WallpaperED(QMainWindow):
         wallpaper_commands = wallpaper_commands.split("\n")
         wallpaper_commands = list(filter(lambda cmd: cmd.lstrip(), wallpaper_commands))
 
-        is_autostart_enabled = not self.ui.isUpdateAutostartEnabledCheckBox.isChecked()
+        is_autostart_enabled = self.ui.isUpdateAutostartEnabledCheckBox.isChecked()
         autostart_query = self.ui.autostartSearchQueryEdit.text().lstrip()
 
         orientation = self.ui.imageOrientationEdit.text().lstrip()
