@@ -15,14 +15,18 @@ BASE_PROGRAM_DATA = {
             "query": ""
         },
         "wallpaper_filename": "unsplash_wallpaper.jpg",
-        "download_directory": "~/.local/share/backgrounds/",
-        "unsplash_api_token": ""
+        "download_directory": "~/.local/share/backgrounds/"
+    },
+    "api": {
+        "unsplash_api_token": "",
+        "unsplash_api_url": "https://api.unsplash.com/photos/random"
     },
     "image": {
         "orientation": "landscape",
         "count": 1
     }
 }
+
 
 
 class ProgramData:

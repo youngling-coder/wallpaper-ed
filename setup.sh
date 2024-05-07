@@ -37,7 +37,7 @@ rm *.spec
 printf "\nSpecify Unsplash API Access Token: "
 read API_TOKEN
 
-jq --arg token "$API_TOKEN" '.app.unsplash_access_token = $token' "$CONFIG_DIR/config.json" > "$CONFIG_DIR/tmp.json" && mv "$CONFIG_DIR/tmp.json" "$CONFIG_DIR/config.json"
+jq --arg token "$API_TOKEN" '.api.unsplash_api_token = $token' "$CONFIG_DIR/config.json" > "$CONFIG_DIR/tmp.json" && mv "$CONFIG_DIR/tmp.json" "$CONFIG_DIR/config.json"
 
 printf "\nConfiguration file directory: %s " "$CONFIG_DIR"
 printf "\nInstallation done!"
