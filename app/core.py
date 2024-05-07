@@ -74,6 +74,23 @@ def get_image_url(config: Optional[dict] = {}) -> dict:
     return response.json()[0]
 
 
+def setAutostartRegistry(create: bool = True):
+        filename = "wallpaper-ed-autostart.desktop"
+        autostart_registry_path = os.path.expanduser(f"~/.config/autostart/{filename}")
+
+        if create:
+            with open(autostart_registry_path, "w") as reg:
+                reg.write(
+"""[Desktop Entry]
+Comment=Fresh wallpapers every time.
+Exec=wallpaper-ed
+Type=Application
+"""
+                          )
+        else:
+            if os.path.exists(autostart_registry_path):
+                os.remove(autostart_registry_path)
+
 def get_image_as_bytes(url: str) -> bytes | None:
     """Parse image from url and returns image data as bytes."""
 

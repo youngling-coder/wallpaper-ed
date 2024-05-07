@@ -112,7 +112,7 @@ class WallpaperED(QMainWindow):
         self.__program_data.set_is_autostart_enabled(is_autostart_enabled)
         self.__program_data.set_autostart_query(autostart_query)
 
-        self.autostartRegistry(delete=is_autostart_enabled)
+        core.setAutostartRegistry(create=is_autostart_enabled)
 
     def autostartRegistry(self, delete: bool = False):
 
