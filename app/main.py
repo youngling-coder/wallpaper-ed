@@ -178,18 +178,19 @@ Type=Application
 
     def setWallpaperButtonClicked(self):
 
-        # Get full image
-        try:
-            image_data = core.get_image_as_bytes(url=self.current_image["urls"]["full"])
-        except Exception as ex:
-            self.showErrorMessage(title="Error!",
-                                  description="An error occurred while program execution!",
-                                  details=str(ex))
-            return -1
+        if self.current_image:
+            # Get full image
+            try:
+                image_data = core.get_image_as_bytes(url=self.current_image["urls"]["full"])
+            except Exception as ex:
+                self.showErrorMessage(title="Error!",
+                                    description="An error occurred while program execution!",
+                                    details=str(ex))
+                return -1
 
-        # Save image and set as wallpaper
-        core.save_image(content=image_data)
-        core.set_wallpaper()
+            # Save image and set as wallpaper
+            core.save_image(content=image_data)
+            core.set_wallpaper()
 
 
 if __name__ == "__main__":
