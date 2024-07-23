@@ -1,6 +1,7 @@
 import json
 import os
 from typing import Dict, List, AnyStr
+import uuid
 
 APP_NAME = "wallpaper-ed"
 
@@ -14,7 +15,6 @@ BASE_PROGRAM_DATA = {
             "enabled": True,
             "query": ""
         },
-        "wallpaper_filename": "unsplash_wallpaper.jpg",
         "download_directory": "~/.local/share/backgrounds/"
     },
     "api": {
@@ -92,8 +92,6 @@ class ProgramData:
 
         self.write_config()
 
-    def get_wallpaper_filename(self) -> AnyStr:
-        return self.__config["app"]["wallpaper_filename"]
 
     def get_download_directory(self) -> AnyStr:
         return os.path.expanduser(self.__config["app"]["download_directory"])
@@ -106,7 +104,7 @@ class ProgramData:
     def get_wallpaper_path(self) -> AnyStr:
         return os.path.join(
             os.path.expanduser(self.__config["app"]["download_directory"]),
-            self.get_wallpaper_filename()
+            str(uuid.uuid4())
         )
 
     def get_unsplash_api_token(self) -> AnyStr:

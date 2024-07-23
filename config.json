@@ -8,7 +8,6 @@
             "enabled": true,
             "query": ""
         },
-        "wallpaper_filename": "unsplash_wallpaper.jpg",
         "download_directory": "~/.local/share/backgrounds/"
     },
     "api": {
