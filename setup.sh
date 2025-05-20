@@ -7,6 +7,9 @@ CONFIG_DIR=~/.config/$APP_NAME
 ICON_DIR=/usr/share/icons/$APP_NAME
 APP_SHORTCUT_DIR=~/.local/share/applications/
 
+python3 -m venv .venv
+
+source .venv/bin/activate
 # Installing python3 requirements
 pip3 install -r requirements.txt
 
@@ -27,7 +30,6 @@ cp app/entries/$APP_NAME-gui.desktop $APP_SHORTCUT_DIR
 rm -rf $BUILD_DIR
 rm -rf build/
 rm *.spec
-
 
 printf "\nConfiguration file directory: %s " "$CONFIG_DIR"
 printf "\nInstallation done!"
