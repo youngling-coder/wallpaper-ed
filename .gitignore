@@ -10,3 +10,4 @@ dist/
 wallpaper-ed-pkgbuild/
 makepkg.sh
 exclude.lst
+PKGBUILD
