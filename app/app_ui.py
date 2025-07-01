@@ -14,7 +14,11 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(973, 677)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/icon/icons/icon_128.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(
+            QtGui.QPixmap(":/icon/icons/icon_128.png"),
+            QtGui.QIcon.Mode.Normal,
+            QtGui.QIcon.State.Off,
+        )
         MainWindow.setWindowIcon(icon)
         MainWindow.setWindowOpacity(1.0)
         MainWindow.setIconSize(QtCore.QSize(128, 128))
@@ -26,19 +30,27 @@ class Ui_MainWindow(object):
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.imageQueryEdit = QtWidgets.QLineEdit(parent=self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.imageQueryEdit.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.imageQueryEdit.sizePolicy().hasHeightForWidth()
+        )
         self.imageQueryEdit.setSizePolicy(sizePolicy)
         self.imageQueryEdit.setText("")
         self.imageQueryEdit.setObjectName("imageQueryEdit")
         self.horizontalLayout.addWidget(self.imageQueryEdit)
         self.getWallpaperButton = QtWidgets.QPushButton(parent=self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.getWallpaperButton.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.getWallpaperButton.sizePolicy().hasHeightForWidth()
+        )
         self.getWallpaperButton.setSizePolicy(sizePolicy)
         self.getWallpaperButton.setMinimumSize(QtCore.QSize(0, 36))
         self.getWallpaperButton.setObjectName("getWallpaperButton")
@@ -92,11 +104,17 @@ class Ui_MainWindow(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.tab)
         self.verticalLayout.setObjectName("verticalLayout")
         self.imageArea = QtWidgets.QGraphicsView(parent=self.tab)
-        self.imageArea.setViewportUpdateMode(QtWidgets.QGraphicsView.ViewportUpdateMode.FullViewportUpdate)
+        self.imageArea.setViewportUpdateMode(
+            QtWidgets.QGraphicsView.ViewportUpdateMode.FullViewportUpdate
+        )
         self.imageArea.setObjectName("imageArea")
         self.verticalLayout.addWidget(self.imageArea)
         self.creditsLabel = QtWidgets.QLabel(parent=self.tab)
-        self.creditsLabel.setAlignment(QtCore.Qt.AlignmentFlag.AlignRight|QtCore.Qt.AlignmentFlag.AlignTrailing|QtCore.Qt.AlignmentFlag.AlignVCenter)
+        self.creditsLabel.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignRight
+            | QtCore.Qt.AlignmentFlag.AlignTrailing
+            | QtCore.Qt.AlignmentFlag.AlignVCenter
+        )
         self.creditsLabel.setOpenExternalLinks(True)
         self.creditsLabel.setObjectName("creditsLabel")
         self.verticalLayout.addWidget(self.creditsLabel)
@@ -131,7 +149,11 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.label_5 = QtWidgets.QLabel(parent=self.groupBox)
-        self.label_5.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeading|QtCore.Qt.AlignmentFlag.AlignLeft|QtCore.Qt.AlignmentFlag.AlignTop)
+        self.label_5.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignLeading
+            | QtCore.Qt.AlignmentFlag.AlignLeft
+            | QtCore.Qt.AlignmentFlag.AlignTop
+        )
         self.label_5.setObjectName("label_5")
         self.horizontalLayout_4.addWidget(self.label_5)
         self.wallpaperCommandEdit = QtWidgets.QTextEdit(parent=self.groupBox)
@@ -150,7 +172,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.apiTokenEdit = QtWidgets.QLineEdit(parent=self.groupBox)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.apiTokenEdit.sizePolicy().hasHeightForWidth())
@@ -159,10 +183,14 @@ class Ui_MainWindow(object):
         self.apiTokenEdit.setObjectName("apiTokenEdit")
         self.horizontalLayout_3.addWidget(self.apiTokenEdit)
         self.showAPITokenButton = QtWidgets.QPushButton(parent=self.groupBox)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.showAPITokenButton.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.showAPITokenButton.sizePolicy().hasHeightForWidth()
+        )
         self.showAPITokenButton.setSizePolicy(sizePolicy)
         self.showAPITokenButton.setObjectName("showAPITokenButton")
         self.horizontalLayout_3.addWidget(self.showAPITokenButton)
@@ -173,21 +201,34 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addWidget(self.scrollArea)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Policy.Expanding, QtWidgets.QSizePolicy.Policy.Minimum)
+        spacerItem = QtWidgets.QSpacerItem(
+            20,
+            40,
+            QtWidgets.QSizePolicy.Policy.Expanding,
+            QtWidgets.QSizePolicy.Policy.Minimum,
+        )
         self.horizontalLayout_2.addItem(spacerItem)
         self.resetSettingsButton = QtWidgets.QPushButton(parent=self.tab_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.resetSettingsButton.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.resetSettingsButton.sizePolicy().hasHeightForWidth()
+        )
         self.resetSettingsButton.setSizePolicy(sizePolicy)
         self.resetSettingsButton.setObjectName("resetSettingsButton")
         self.horizontalLayout_2.addWidget(self.resetSettingsButton)
         self.applySettingsButton = QtWidgets.QPushButton(parent=self.tab_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.applySettingsButton.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.applySettingsButton.sizePolicy().hasHeightForWidth()
+        )
         self.applySettingsButton.setSizePolicy(sizePolicy)
         self.applySettingsButton.setObjectName("applySettingsButton")
         self.horizontalLayout_2.addWidget(self.applySettingsButton)
@@ -195,10 +236,14 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.tab_2, "")
         self.verticalLayout_2.addWidget(self.tabWidget)
         self.setWallpaperButton = QtWidgets.QPushButton(parent=self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Maximum
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.setWallpaperButton.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.setWallpaperButton.sizePolicy().hasHeightForWidth()
+        )
         self.setWallpaperButton.setSizePolicy(sizePolicy)
         self.setWallpaperButton.setMinimumSize(QtCore.QSize(0, 36))
         self.setWallpaperButton.setObjectName("setWallpaperButton")
@@ -212,7 +257,9 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "WallpaperED"))
-        self.imageQueryEdit.setPlaceholderText(_translate("MainWindow", "flowers, people, color, etc.."))
+        self.imageQueryEdit.setPlaceholderText(
+            _translate("MainWindow", "flowers, people, color, etc..")
+        )
         self.getWallpaperButton.setToolTip(_translate("MainWindow", "Enter"))
         self.getWallpaperButton.setText(_translate("MainWindow", "Get Wallpaper!"))
         self.getWallpaperButton.setShortcut(_translate("MainWindow", "Return"))
@@ -220,19 +267,31 @@ class Ui_MainWindow(object):
         self.APIComboBox.setItemText(0, _translate("MainWindow", "unsplash"))
         self.APIComboBox.setItemText(1, _translate("MainWindow", "wallhaven"))
         self.label_6.setText(_translate("MainWindow", "Image Orientation"))
-        self.imageOrientationComboBox.setItemText(0, _translate("MainWindow", "landscape"))
-        self.imageOrientationComboBox.setItemText(1, _translate("MainWindow", "squarish"))
-        self.imageOrientationComboBox.setItemText(2, _translate("MainWindow", "portrait"))
+        self.imageOrientationComboBox.setItemText(
+            0, _translate("MainWindow", "landscape")
+        )
+        self.imageOrientationComboBox.setItemText(
+            1, _translate("MainWindow", "squarish")
+        )
+        self.imageOrientationComboBox.setItemText(
+            2, _translate("MainWindow", "portrait")
+        )
         self.SFWCheckBox.setText(_translate("MainWindow", "SFW"))
         self.SketchyCheckBox.setText(_translate("MainWindow", "Sketchy"))
         self.NSFWCheckBox.setText(_translate("MainWindow", "NSFW"))
         self.creditsLabel.setText(_translate("MainWindow", "Captured by"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Main"))
+        self.tabWidget.setTabText(
+            self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Main")
+        )
         self.groupBox.setTitle(_translate("MainWindow", "Application Settings"))
         self.label_3.setText(_translate("MainWindow", "Download directory"))
-        self.downloadDirectoryEdit.setPlaceholderText(_translate("MainWindow", "~/path/to/dowbload/direcory"))
+        self.downloadDirectoryEdit.setPlaceholderText(
+            _translate("MainWindow", "~/path/to/dowbload/direcory")
+        )
         self.label_5.setText(_translate("MainWindow", "Commands to update wallpaper"))
-        self.wallpaperCommandEdit.setPlaceholderText(_translate("MainWindow", "Use %PATH% to specify your download directory..."))
+        self.wallpaperCommandEdit.setPlaceholderText(
+            _translate("MainWindow", "Use %PATH% to specify your download directory...")
+        )
         self.label.setText(_translate("MainWindow", "*commands separated by new line"))
         self.label_4.setText(_translate("MainWindow", "API Token"))
         self.apiTokenEdit.setPlaceholderText(_translate("MainWindow", "API-TOKEN"))
@@ -242,7 +301,9 @@ class Ui_MainWindow(object):
         self.resetSettingsButton.setShortcut(_translate("MainWindow", "Ctrl+R"))
         self.applySettingsButton.setText(_translate("MainWindow", "Apply"))
         self.applySettingsButton.setShortcut(_translate("MainWindow", "Ctrl+S"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Settings"))
+        self.tabWidget.setTabText(
+            self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Settings")
+        )
         self.setWallpaperButton.setToolTip(_translate("MainWindow", "Ctrl+Alt+Enter"))
         self.setWallpaperButton.setText(_translate("MainWindow", "Set Wallpaper!"))
         self.setWallpaperButton.setShortcut(_translate("MainWindow", "Ctrl+Alt+Return"))

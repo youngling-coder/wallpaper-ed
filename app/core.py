@@ -11,16 +11,19 @@ available_apis = program_data.apis.keys()
 
 
 # Check if config file exists and create one if not
-if not os.path.exists(program_data.config_filename) or os.path.isdir(program_data.config_filename):
+if not os.path.exists(program_data.config_filename) or os.path.isdir(
+    program_data.config_filename
+):
     program_data.write_config()
 else:
     program_data.load_config()
 
 # Initializing Unsplash API token and URL
 
+
 def seed(length=6):
     characters = string.ascii_letters + string.digits
-    return ''.join(random.choices(characters, k=length))
+    return "".join(random.choices(characters, k=length))
 
 
 def set_wallpaper(filepath: str) -> None:
@@ -52,7 +55,7 @@ def get_image_url(query: str) -> str:
     """Fetches URL of the image from the selected API."""
     api_name = program_data.selected_api
     api_config = program_data.apis.get(api_name)
-    
+
     if not api_config:
         raise ValueError(f"No API config found for '{api_name}'")
 
@@ -103,6 +106,7 @@ def get_image_url(query: str) -> str:
 
     else:
         raise ValueError(f"Unsupported API selected: {api_name}")
+
 
 def get_image_as_bytes(url: str) -> bytes | None:
     """Parse image from url and returns image data as bytes."""
