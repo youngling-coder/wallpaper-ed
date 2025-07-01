@@ -57,7 +57,7 @@ There's the built-in search bar implemented to generate photos according to your
 By default, in Wallpaper-Ed  update wallpaper on startup function is enabled. You can set up a specific query for this, try your luck with completely random images, or disable wallpaper updates on startup.
 ### GUI
 
-This app is also has GUI powered by PyQt5. WallpaperED is supposed to appear in the applications menu,
+This app is also has GUI powered by PyQt6. WallpaperED is supposed to appear in the applications menu,
 but you can use the command below to launch GUI Instance of the application.
 
 ```sh
