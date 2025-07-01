@@ -49,45 +49,60 @@ def save_image(content: bytes, filename: str = "wallpaper.jpg") -> None:
 
 
 def get_image_url(query: str) -> str:
-    """Fetches URL of the image."""
+    """Fetches URL of the image from the selected API."""
+    api_name = program_data.selected_api
+    api_config = program_data.apis.get(api_name)
+    
+    if not api_config:
+        raise ValueError(f"No API config found for '{api_name}'")
 
-    api_config = program_data.apis[program_data.selected_api]
-    base_url = api_config["api_url"]
+    orientation = program_data.image.get("orientation")
+    purity = program_data.image.get("purity")
 
-    match program_data.selected_api:
-        case "wallhaven":
-            base_url += f"?apikey={api_config["api_token"]}"
-            base_url += f"&ratios={program_data.orientation_ratios[program_data.image["orientation"]]}"
-            base_url += f"&q={query}"
-            base_url += f"&purity={program_data.image["purity"]}"
-            base_url += f"&seed={seed()}"
+    if not orientation or not purity:
+        raise ValueError("Missing orientation or purity in program_data.image")
 
+    if api_name == "wallhaven":
+        ratio = program_data.orientation_ratios.get(orientation)
+        if not ratio:
+            raise ValueError(f"No ratio found for orientation '{orientation}'")
 
-            # Generating response from API
-            response = requests.get(base_url)
-            data = response.json()["data"]
-            url = random.choice(data)["path"]
+        url = (
+            f"{api_config['api_url']}?apikey={api_config['api_token']}"
+            f"&ratios={ratio}&q={query}&purity={purity}&seed={seed()}"
+        )
 
-        case "unsplash":
-            base_url += f"?client_id={api_config["api_token"]}"
-            base_url += f"&orientation={program_data.image["orientation"]}"
-            base_url += f"&query={query}"
+        response = requests.get(url)
 
+        if response.status_code != 200:
+            raise requests.HTTPError(
+                f"{response.status_code} - {responses.get(response.status_code, 'Unknown error')}"
+            )
 
-            response = requests.get(base_url)
-            data = response.json()
-            url = data["urls"]["full"]
+        data = response.json().get("data", [])
+        if not data:
+            raise ValueError("No image data returned from Wallhaven")
 
+        return random.choice(data)["path"]
 
-    if response.status_code != 200:
-        error_msg = f"{response.status_code} - {responses[response.status_code]}"
-        if response.status_code == 401:
-            error_msg += f"API Access Token is invalid or not specified.\n"
-        raise requests.HTTPError(error_msg)
+    elif api_name == "unsplash":
+        url = (
+            f"{api_config['api_url']}?client_id={api_config['api_token']}"
+            f"&orientation={orientation}&query={query}"
+        )
 
-    # Return image url
-    return url
+        response = requests.get(url)
 
+        if response.status_code != 200:
+            raise requests.HTTPError(
+                f"{response.status_code} - {responses.get(response.status_code, 'Unknown error')}"
+            )
+
+        data = response.json()
+        return data.get("urls", {}).get("full")
+
+    else:
+        raise ValueError(f"Unsupported API selected: {api_name}")
 
 def get_image_as_bytes(url: str) -> bytes | None:
     """Parse image from url and returns image data as bytes."""
