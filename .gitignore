@@ -8,3 +8,5 @@ build/
 dist/
 .idea/
 wallpaper-ed-pkgbuild/
+makepkg.sh
+exclude.lst
