@@ -173,12 +173,23 @@ class WallpaperED(QMainWindow):
         self.worker = ImageDownloadWorker(query, self.__program_data)
         self.worker.moveToThread(self.thread)
         self.thread.started.connect(self.worker.run)
+
+        # Connect signals
         self.worker.finished.connect(self.on_image_downloaded)
         self.worker.error.connect(self.on_image_download_error)
-        self.worker.finished.connect(self.thread.quit)
-        self.worker.finished.connect(self.worker.deleteLater)
-        self.thread.finished.connect(self.thread.deleteLater)
+
+        # Cleanup for both success and error cases
+        self.worker.finished.connect(self.cleanup_thread)
+        self.worker.error.connect(self.cleanup_thread)
+
         self.thread.start()
+
+    def cleanup_thread(self):
+        """Clean up thread resources"""
+        self.thread.quit()
+        self.thread.wait()
+        self.worker.deleteLater()
+        self.thread.deleteLater()
 
     def on_image_downloaded(self, url, image_data):
         self.current_image = url
@@ -200,6 +211,8 @@ class WallpaperED(QMainWindow):
             description="An error occurred while program execution!",
             details=error_msg,
         )
+        # Reset current image to prevent using invalid URL
+        self.current_image = None
 
     def setWallpaperButtonClicked(self):
 
